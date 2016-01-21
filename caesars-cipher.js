@@ -1,3 +1,18 @@
+function rot13(str){
+  var offset = 13;
+  var az = "AZ";
+  var strRetunr = str.reduce(function(prev, curr, index, array){
+    var toAppend = curr;
+    var currCode = curr.charCodeAt(0);
+    if(curr !== " " && currCode >= az.charCodeAt(0) && currCode <= az.charCodeAt(1)){
+      toAppend = currCode - offset >= az.charCodeAt(0) ? currCode - offset : currCode + offset;
+    }
+    return prev + toAppend;
+  }, "");
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 function rot13(str) { // LBH QVQ VG!
   var offset = 13;
   var rangeLetters = "AZ";
@@ -9,9 +24,9 @@ function rot13(str) { // LBH QVQ VG!
     if(char !== " "){
       var code = str.charCodeAt(i);
       if(code >= initRange && code <= endRange){
-        code = code - 13 >= initRange
-          ? code - 13
-          : code + 13;
+        code = code - offset >= initRange
+          ? code - offset
+          : code + offset;
         char = String.fromCharCode(code);
       }
     }
@@ -19,6 +34,5 @@ function rot13(str) { // LBH QVQ VG!
   }
   return strRetunr;
 }
-
 // Change the inputs below to test
 // rot13("SERR PBQR PNZC");
